@@ -1,0 +1,79 @@
+   body {
+  padding-top: 56px;
+}
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+.navbar{
+  background-color: #3399ff !important;
+}
+.dropdown-menu{
+  background-color: #3399ff !important;
+}
+.card{
+  border: 2px solid #3399ff;
+}
+div .image1{
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100px;
+  background-size: cover;
+  background-color: #3399ff;
+}
+img{
+  position: relative;
+  display: block;
+  width: 120px!important;
+  height: 100px!important;
+  margin-left: auto;
+  margin-right: auto;
+  top: 35px!important;
+  border-radius: 50%!important;
+}
+div .contact{
+padding: 5px;
+}
+div .contactlist{
+  padding-left: 10px;
+}
+.names{
+  display: block!important;
+  margin-left: auto!important;
+  margin-right: auto!important;
+}
+button{
+  border-radius: 9px!important;
+}
+.contact h5{
+  text-decoration: underline;
+}
+.contact button{
+  border-style: none;
+}
+
+/*Sign Css*/
+
+.sidedesign{
+  background-color: #3399ff;
+  width: 100%;
+  height: auto;
+}
+/*userpage css*/
+.backimage{
+  background-repeat: no-repeat;
+  height: 200px;
+  top: 0px;
+  background-size: cover;
+}
