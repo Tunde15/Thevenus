@@ -103,7 +103,6 @@ $db = new Pdocon;
         <a class="fixed-bottom" href="#" name="submit"><i class='fa fa-arrow-up' style='font-size:24px'></i></a>
       </div>
     </div>
-    <!-- /.row -->
   
   
 <?php include('includes/footer.php'); ?>
