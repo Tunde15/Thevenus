@@ -1,11 +1,4 @@
-<?php include('includes/header_signin.php'); ?>
-<?php
-//Include functions
-include('includes/functions.php');
-?>
-<?php
-//require database class files
-require('includes/pdocon.php');
+<?php include('includes/header_signup.php');
 //instatiating our database objects
 $db = new Pdocon;
 //Collect and clean values from the form
@@ -52,10 +45,7 @@ if(isset($_POST['submit'])){
     
      $row_id = $db->fetchSingle();
     if($run && $row_id){
-        $_SESSION['user_data'] = array(
-
-        'id_user'         =>   $row_id['user_id'],
-        );
+        $_SESSION['reg_id'] = $row_id['user_id'];
         redirect('work_signup_users.php');
 
         keepmsg('<div class="alert alert-success text-center">

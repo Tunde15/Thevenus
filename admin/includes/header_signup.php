@@ -1,7 +1,8 @@
 <?php 
 //Open ob_start and session_start functions
-    ob_start();
-    session_start();
+ob_start();
+require('includes/init.php');
+$session  = new Session();
 
 ?>
 
@@ -66,7 +67,7 @@
           </li>
           <?php 
            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-             $_SESSION['user_data']['id_user'];
+             $reg_id = $_SESSION['reg_id'];
            }
           ?>
 

@@ -1,14 +1,5 @@
-<?php include('includes/reportitemheader.php'); ?>
-<?php
-//Include functions
-include('admin/includes/functions.php');
-?>
-<?php
-//require database class files
-require('admin/includes/pdocon.php');
-//instatiating our database objects
-$db = new Pdocon;
-//Collect and clean values from the form
+<?php include('includes/reportitemheader.php');
+
 if(isset($_POST['submit'])){
     
     $raw_name           =   cleandata($_POST['item_name']);

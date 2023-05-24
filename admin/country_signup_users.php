@@ -1,17 +1,5 @@
-<?php include('includes/header_signup.php'); ?>
-<?php
-//Include functions
-include('includes/functions.php');
-?>
-                    <?php
-$country_id = $_SESSION['user_data']['id_user'];
-
-?>
-<?php
-//require database class files
-require('includes/pdocon.php');
-//instatiating our database objects
-$db = new Pdocon;
+<?php include('includes/header_signup.php'); 
+$country_id = $_SESSION['reg_id'];
 ?>
  <div class="row">
       <div class="col-lg-2 mb-4">

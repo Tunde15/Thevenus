@@ -1,106 +1,65 @@
 <?php 
 //Open ob_start and session_start functions
     ob_start();
-    session_start();
+require('includes/init.php');
+$session = new Session();
 
-?>
-
-<?php 
-
-if(isset($_SESSION['user_is_logged_in'])){
-    date_default_timezone_set("UTC");
-    
+if($session->checksignin() == false){
+  header("Location: logout.php");
 }else{
-    
-    header("Location: logout.php");
+  date_default_timezone_set("UTC");   
 }
-
 ?>
-
-    
-
-    <!DOCTYPE html>
-    <html lang="en">
-
-
-    <head>
-        
+<!DOCTYPE html>
+  <html lang="en">
+  <head>     
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="People, community, lost and found item" />
+  <meta name="author" content="People, community" />
   <meta name="description" content="" />
-  <meta name="keywords" content="found an item; lost an item" />
-  <meta property="og:title" content="community; street and area news | Grassroot" />
+  <meta name="keywords" content="photos & people; logos business cards, search, logos, personal cards, custom cards, Motivation, people in my area" />
+  <meta property="og:title" content="community; personal Cards | Grassroot" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.theveenuus.com.ng" />
   <meta property="og:image" content="" />
-  <meta property="og:site_name" content="theveenuus.com.ng | my area" />
-  <meta itemprop="name" content="People & community; area street | Welfarism Helps togetherness" />
+  <meta property="og:site_name" content="theveenuus | thevenus" />
+  <meta itemprop="name" content="People & community; personal Cards | Welfarism Helps togetherness" />
   <meta itemprop="description" content="" />
   <meta itemprop="image" content="" />
 
-
-        <title>The Veenuus | Be the change and connect to your community</title>
-
+        <title>The Venus</title>
         <!-- Bootstrap CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="changecss/Thevenus.css">
-        <link rel="icon" type="image/x-icon" href="image/arealogo.png">
+        <link rel="icon" type="image/x-icon" href="image/venus.jpeg">
 
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <!-- script jquery -->
         <script src="js/jquery.js"></script>
+        <script src="js/scripts.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
-        
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]
-        url(https://lh3.googleusercontent.com/-7kOBhr3B2dE/AAAAAAAAAAI/AAAAAAAAAAA/AOtt-yHs4g14qqNJaJBXAcpIMv_fV9dDGw/s32-c-mo/photo.jpg)
-        -->
     </head>
-    
-    <body> 
-
-<script>
-  $(document).ready(function(){
-    $('.area_talk').click(function(){
-   $('#area_conv').show();
-    });
-
-    $('.str_talk').click(function(){
-   $('#street_conv').show();
-    });
-    $('.close1').click(function(){
-      $('#area_conv').hide();
-    })
-    $('.close2').click(function(){
-      $('#street_conv').hide();
-    })
-    
-  });
-
-</script>          
+    <body>          
      <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <?php if(isset($_SESSION['user_is_logged_in'])){
-    
-                 $fullname  =   $_SESSION['user_data']['fullname'];
-                 $my_street =   $_SESSION['user_data']['street'];
-                 $my_area   =   $_SESSION['user_data']['area'];
-                 $my_lga    =   $_SESSION['user_data']['lga'];
-                 $image     =   $_SESSION['user_data']['image'];
-                 $img_sent  =   $_SESSION['user_data']['imgsent'];  
-                 $my_id     =   $_SESSION['user_data']['id'];
+      <?php if(isset($_SESSION['id'])){
+                $user         = new User();
+                $result       = $user->find_byid($_SESSION['id']);
+                $my_name      = $result->user_name;
+                $my_id      = $result->user_id;
+                $my_area      = $result->user_area;
+                $my_street    = $result->user_street;
+                $my_lga       = $result->user_lga;
+                $my_img      = $result->user_img;
+                
+                $image        =   "<img src='uploaded_image/$result->user_img' height='40px!important;' width='40px!important;' style='position:static!important;' />";
+                }else{
+                  redirect('logout.php');
                 } 
                 ?>
       <a class="navbar-brand" href="../index.php">The Venus</a>
@@ -120,28 +79,19 @@ if(isset($_SESSION['user_is_logged_in'])){
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="user_page.php"><?php echo $fullname ?></a>
+            <a class="nav-link" href="user_page.php"><?php echo $result->user_name; ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="area_blog.php">Area News</a>
+            <a class="nav-link" href="../blog.php">Blog</a>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Talks
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-              <a class="dropdown-item str_talk" href="#">Street Talk</a>
-              <a class="dropdown-item area_talk" href="#">Area Talk</a>
-            </div>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="logout.php"><i class="fa fa-sign-out"></i>LogOut</a>
           </li>
         </ul>
       </div>
     </div>
-  </nav>
-        
+  </nav>       
     <div class="container">
         <br><br>
+        <script> showAreStrBox(); </script>
     

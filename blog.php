@@ -1,27 +1,4 @@
 <?php include('includes/header.php'); ?>
-
-
-<?php
-
-//Include functions
-include('admin/includes/functions.php');
-
-//check to see if user if logged in else redirect to index page 
-
-
-?>
-
- 
-<?php
-
-//require or include your database connection file
-//require database class files
-require('admin/includes/pdocon.php');
-    
-//instatiating our database objects
-$db = new Pdocon;
-
-?>
     <!-- Page Heading/Breadcrumbs -->
     <h1 class="mt-4 mb-3">The Venus Blog<br>
       <small>Know more about the society you live today</small>
@@ -36,11 +13,9 @@ $db = new Pdocon;
 
     <!-- Blog Post -->
     <?php
-      //$db->query("SELECT admin_msg FROM admin WHERE admin_name = :name_admin");
-      //$db->bindValue(':name_admin', $c_email, PDO::PARAM_STR);
     $db->query("SELECT * FROM admin_post");
     
-      $results = $db->fetchMultiple();
+      $results = $db->fetchobj_all();
       
     ?>
     <?php  foreach($results as $result) : ?> 
@@ -49,8 +24,7 @@ $db = new Pdocon;
         <div class="row">
           <div class="col-lg-4 mb-4">
               <?php 
-          $myo_img = $result['admin_postpic']; 
-               //echo'<img src="admin/uploaded_image/' . $myo_img . '" height="400px!important;" width="200px!important;" id="output">';
+          $myo_img = $result->admin_postpic; 
           ?>
           <img class="img-fluid rounded" src="admin/uploaded_image/<?php echo $myo_img ?>" height="200" width="200">
               
@@ -58,13 +32,13 @@ $db = new Pdocon;
           <div class="col-lg-2 mb-2">
           </div>
           <div class="col-lg-6 mb-6">
-            <h5 class="card-title"><?php echo $result['admin_heading']; ?></h5>
-            <p class="card-text"><?php echo $result['admin_msg']; ?></p>
+            <h5 class="card-title"><?php echo $result->admin_heading; ?></h5>
+            <p class="card-text"><?php echo $result->admin_msg; ?></p>
           </div>
         </div>
       </div>
       <div class="card-footer text-muted">
-        Posted on <?php echo $result['time']; ?> by
+        Posted on <?php echo $result->time; ?> by
         <a href="#">The Venus</a>
       </div>
     </div>

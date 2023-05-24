@@ -1,86 +1,32 @@
- <?php include('includes/header_signin.php'); ?>
+<?php 
+ //require init class and header files
+include('includes/header_signin.php');
 
+$user    = new User();
+$session = new Session();
 
-<?php
-
-//Include functions
-include('includes/functions.php');
-
-
-
-?>
- 
- 
- 
-<?php
-/************** Register new customer ******************/
-
-
-//require database class files
-require('includes/pdocon.php');
-
-
-//instatiating our database objects
-$db = new Pdocon;
 showmsg();
 //Collect and clean values from the form
 if(isset($_POST['submit'])){
     
     $raw_email       =   cleandata($_POST['email']);
-    
     $raw_password    =   cleandata($_POST['password']);
     
 //Clean Data
     $c_email         =   valemail($raw_email);            
-    
     $hashed_password =   hashpassword($raw_password);
-      
-    
-    $db->query('SELECT * FROM users WHERE user_email =:email AND user_pass =:password');
-    
-    $db->bindValue(':email', $c_email, PDO::PARAM_STR);
-    $db->bindValue(':password',$hashed_password, PDO::PARAM_STR);
-    
-    $row = $db->fetchSingle();
-    
+
+    $row = $user->verify_user($c_email, $hashed_password);
     
     if($row){
-        
-        $d_image        =   $row['user_img'];
-        
-        $d_name         =   $row['user_nicename'];
-        
-        $s_image        =   "<img src='uploaded_image/$d_image' height='40px!important;' width='40px!important;' style='position:static!important;' />"; 
-        
-        $_SESSION['user_data'] = array(
-        
-        
-        'fullname'      =>   $row['user_name'],
-        'id'            =>   $row['user_id'],
-        'email'         =>   $row['user_email'],
-        'street'        =>   $row['user_street'],
-        'area'          =>   $row['user_area'],
-        'lga'           =>   $row['user_lga'],
-        'imgsent'       =>   $row['user_img'],
-        'image'         =>   $s_image
 
-        );
-        
-        $_SESSION['user_is_logged_in']  =  true;
-        
+        $_SESSION['id'] = $row->user_id;
+        $session->login($row);
         redirect('user_page.php');
-
-        $myname = $_SESSION['user_data']['fullname'];
-        
-        
         keepmsg('<div class="alert alert-success text-center">
                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Welcome </strong>' . $myname . ' You are logged in to The Venus. 
-                </div>');
-        
-        
-        
-        
+                      <strong>Welcome </strong>' . $row->user_name . ' You are logged in to The Venus. 
+                </div>');    
     }else{
         
          echo '<div class="alert alert-danger text-center">
@@ -123,16 +69,5 @@ if(isset($_POST['submit'])){
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    function showMypass(){
-      var x = document.getElementById('pwd');
-      if(x.type === "password"){
-        x.type = "text";
-      }
-      else{
-        x.type = "password";
-      }
-    }
-  </script>
 
   <?php include('../includes/footer.php'); ?>  

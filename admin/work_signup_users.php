@@ -1,16 +1,6 @@
-<?php include('includes/header_signup.php'); ?>
-<?php
-//Include functions
-include('includes/functions.php');
-?>
-          <?php
-$work_id = $_SESSION['user_data']['id_user'];
+<?php include('includes/header_signup.php');
 
-?>
-<?php
-//require database class files
-require('includes/pdocon.php');
-//instatiating our database objects
+$work_id = $_SESSION['reg_id'];
 $db = new Pdocon;
 ?>
  <div class="row">

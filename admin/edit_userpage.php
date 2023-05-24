@@ -1,13 +1,5 @@
 <?php include('includes/header.php'); ?>
 
-
-<?php
-
-//Include functions
-include('includes/functions.php');
-
-
-?>
    <?php 
                
                /************** Fetching data from database using id ******************/
@@ -15,12 +7,6 @@ include('includes/functions.php');
                     
                     $user_id   =   $_GET['my_id'];
                  }
-
-                //require database class files
-                require('includes/pdocon.php');
-
-                //instatiating our database objects
-                $db = new Pdocon;
                
                 $db->query("SELECT * FROM users WHERE user_id =:id");
                
@@ -184,11 +170,11 @@ if(isset($_POST['submit_update'])){
         
         if($run){
             
-            header("location: signin_users.php");
+            header("location: user_page.php");
             
             keepmsg('<div class="alert alert-success text-center">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <strong>Success!</strong> Update successfully. Please login back
+                  <strong>Success!</strong> Update successfully
                   </div>');
             
         }else{
