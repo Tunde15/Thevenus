@@ -184,11 +184,11 @@ if(isset($_POST['submit_update'])){
         
         if($run){
             
-            header("location: user_page.php");
+            header("location: signin_users.php");
             
             keepmsg('<div class="alert alert-success text-center">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                  <strong>Success!</strong> Update successfully
+                  <strong>Success!</strong> Update successfully. Please login back
                   </div>');
             
         }else{

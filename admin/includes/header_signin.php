@@ -14,18 +14,19 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="name" content="thevenus, theveenuus.com">
+        <meta name="name" content="My Area, myarea.com.ng">
         <meta name="keywords" content="street, area, country, names, personal cards">
-        <meta name="author" content="People, community" />
+        <meta name="author" content="People, community, CDA" />
         <meta name="description" content="sign in today" />
+        <meta property="og:title" content="community; CDA | Grassroot, people in your area, street, area, community, public place" />
 
-        <title>The Venus</title>
+        <title>My Area | sign in to connect to your street and area</title>
 
         <!-- Bootstrap CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="changecss/Thevenus.css">
-        <link rel="icon" type="image/x-icon" href="image/venus.jpeg">
+        <link rel="icon" type="image/x-icon" href="image/arealogo.png">
 
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -48,7 +49,7 @@
      <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="../index.php">The Venus</a>
+      <a class="navbar-brand" href="../index.php">My Area</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

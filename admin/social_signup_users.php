@@ -24,21 +24,21 @@ $db = new Pdocon;
           <div class="control-group form-group">
             <div class="controls">
               <label>Twitter:</label>
-              <input type="text" class="form-control" id="facebook" name="facebook"  data-validation-required-message="Please enter your name.">
+              <input type="text" class="form-control" id="facebook" name="facebook"  data-validation-required-message="Please enter your facebook username.">
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>Facebook:</label>
-              <input type="text" class="form-control" id="twitter" name="twitter"  data-validation-required-message="Please enter your email.">
+              <input type="text" class="form-control" id="twitter" name="twitter">
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>Instagram:</label>
-              <input type="text" class="form-control" id="instagram" name="instagram" required data-validation-required-message="Please enter your Password.">
+              <input type="text" class="form-control" id="instagram" name="instagram">
             </div>
           </div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton" name="update">Continue</button>

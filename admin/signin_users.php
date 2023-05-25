@@ -113,6 +113,8 @@ if(isset($_POST['submit'])){
             <div class="controls">
               <label>Password:</label>
               <input type="Password" class="form-control" id="pwd" name="password" required data-validation-required-message="Please enter your Password.">
+              <label>Show Password:</label>
+              <input type="checkbox" id="showpass" name="showpass" onclick="showMypass()">
             </div>
           </div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton" name="submit">SignIn</button>
@@ -121,5 +123,16 @@ if(isset($_POST['submit'])){
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    function showMypass(){
+      var x = document.getElementById('pwd');
+      if(x.type === "password"){
+        x.type = "text";
+      }
+      else{
+        x.type = "password";
+      }
+    }
+  </script>
 
   <?php include('../includes/footer.php'); ?>  

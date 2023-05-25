@@ -24,21 +24,21 @@ $db = new Pdocon;
           <div class="control-group form-group">
             <div class="controls">
               <label>Work1 Name:</label>
-              <input type="text" class="form-control" id="work1" name="work1"  data-validation-required-message="Please enter your name.">
+              <input type="text" class="form-control" id="work1" name="work1"  data-validation-required-message="Please enter your work.">
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>work2 Name:</label>
-              <input type="text" class="form-control" id="work2" name="work2"  data-validation-required-message="Please enter your email.">
+              <input type="text" class="form-control" id="work2" name="work2">
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>work3 Name:</label>
-              <input type="text" class="form-control" id="work3" name="work3" required data-validation-required-message="Please enter your Password.">
+              <input type="text" class="form-control" id="work3" name="work3">
             </div>
           </div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton" name="update">Continue</button>

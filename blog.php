@@ -23,21 +23,22 @@ $db = new Pdocon;
 
 ?>
     <!-- Page Heading/Breadcrumbs -->
-    <h1 class="mt-4 mb-3">Currently Not Working Now.<br>
     <h1 class="mt-4 mb-3">The Venus Blog<br>
       <small>Know more about the society you live today</small>
     </h1>
 
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a href="index.html">Home</a>
+        <a href="index.php">Home</a>
       </li>
       <li class="breadcrumb-item active">Blog Home</li>
     </ol>
 
     <!-- Blog Post -->
     <?php
-      $db->query("SELECT * FROM blogpost");
+      //$db->query("SELECT admin_msg FROM admin WHERE admin_name = :name_admin");
+      //$db->bindValue(':name_admin', $c_email, PDO::PARAM_STR);
+    $db->query("SELECT * FROM admin_post");
     
       $results = $db->fetchMultiple();
       
@@ -48,35 +49,26 @@ $db = new Pdocon;
         <div class="row">
           <div class="col-lg-4 mb-4">
               <?php 
-          $myo_img = $result['blogpic']; 
-              echo'<img class="img-fluid rounded" src="admin/uploaded_image/' . $myo_img . '" alt="">'
-              ?>
+          $myo_img = $result['admin_postpic']; 
+               //echo'<img src="admin/uploaded_image/' . $myo_img . '" height="400px!important;" width="200px!important;" id="output">';
+          ?>
+          <img class="img-fluid rounded" src="admin/uploaded_image/<?php echo $myo_img ?>" height="200" width="200">
+              
           </div>
-          <div class="col-lg-2 mb-4">           
+          <div class="col-lg-2 mb-2">
           </div>
-          <div class="col-lg-6 mb-4">
-            <h2 class="card-title"><?php echo $result['blogtitle']; ?></h2>
-            <p class="card-text"><?php echo $result['blogmsg']; ?></p>
-            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+          <div class="col-lg-6 mb-6">
+            <h5 class="card-title"><?php echo $result['admin_heading']; ?></h5>
+            <p class="card-text"><?php echo $result['admin_msg']; ?></p>
           </div>
         </div>
       </div>
       <div class="card-footer text-muted">
-        Posted on <?php echo $result['blogtime']; ?> by
+        Posted on <?php echo $result['time']; ?> by
         <a href="#">The Venus</a>
       </div>
     </div>
 <?php endforeach ; ?>
-    <!-- Pagination -->
-    <ul class="pagination justify-content-center mb-4">
-      <li class="page-item">
-        <a class="page-link" href="#">&larr; Older</a>
-      </li>
-      <li class="page-item disabled">
-        <a class="page-link" href="#">Newer &rarr;</a>
-      </li>
-    </ul>
-
 
   <!-- /.container -->
 <div class="row">

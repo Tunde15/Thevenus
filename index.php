@@ -49,6 +49,7 @@ $db = new Pdocon;
 
     <!-- Marketing Icons Section -->
     <div class="row">
+
       <?php  foreach($results as $result) : ?>  
       <div class="col-lg-6 mb-4">
          <div class="card h-100">
@@ -103,6 +104,7 @@ $db = new Pdocon;
         <a class="fixed-bottom" href="#" name="submit"><i class='fa fa-arrow-up' style='font-size:24px'></i></a>
       </div>
     </div>
+    <!-- /.row -->
   
   
 <?php include('includes/footer.php'); ?>

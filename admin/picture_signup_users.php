@@ -3,7 +3,7 @@
 //Include functions
 include('includes/functions.php');
 ?>
-          <?php
+<?php
 $picture_id = $_SESSION['user_data']['id_user'];
 
 ?>

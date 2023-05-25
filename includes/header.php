@@ -22,7 +22,7 @@
   <meta name="keywords" content="street, area, country, names, personal cards">
   <meta name="author" content="People, community" />
   <meta name="description" content="" />
-  <meta name="keywords" content="photos & people; logos business cards, search, logos, personal cards, custom cards, Motivation, people in my area" />
+  <meta name="keywords" content="photos &people; logos business cards, search, logos, personal cards, custom cards, Motivation, people in my area" />
   <meta property="og:title" content="community; personal Cards | Grassroot" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.theveenuus.com.ng" />
@@ -34,13 +34,13 @@
 
 
 
-        <title>My Area</title>
+        <title>The Veenuus</title>
 
         <!-- Bootstrap CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="changecss/Thevenus.css">
-        <link rel="icon" type="image/x-icon" href="image/arealogo.png">
+        <link rel="icon" type="image/x-icon" href="image/venus.jpeg">
 
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -63,7 +63,7 @@
      <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="index.php">My Area</a>
+      <a class="navbar-brand" href="index.php">The Veenuus</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -71,6 +71,9 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="foundit.php">Foundit</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="blog.php">Blog</a>
@@ -128,24 +131,24 @@
       </ol>
       <div class="carousel-inner" role="listbox">
         <!-- Slide One - Set the background image for this slide in the line below -->
-        <div class="carousel-item active" style="background-image: url('image/together.jpg')">
+        <div class="carousel-item active" style="background-image: url('image/card.jpg')">
           <div class="carousel-caption d-md-block">
-            <h3>Welcome To My Area</h3>
-            <p>Get Known Globally.</p>
+            <h3 style="color: black;">Welcome To The Veenuus</h3>
+            <p style="color: black; font-weight: bold;">Get Known Globally.</p>
           </div>
         </div>
         <!-- Slide Two - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('image/together2.jpg')">
+        <div class="carousel-item" style="background-image: url('image/together.jpg')">
           <div class="carousel-caption d-lg-block">
             <h3>Welcome To My Area</h3>
             <p>Connect To The People In Your Circle.</p>
           </div>
         </div>
         <!-- Slide Three - Set the background image for this slide in the line below -->
-        <div class="carousel-item" style="background-image: url('image/card.jpg')">
+        <div class="carousel-item" style="background-image: url('image/together2.jpg')">
           <div class="carousel-caption d-md-block">
-            <h3 style="color: black;">Information Is Key</h3>
-            <p style="color: black; font-weight: bold;">It Makes Us.</p>
+            <h3 style="color: black;">Foundit</h3>
+            <p style="color: black; font-weight: bold;">Lost And Found Items</p>
           </div>
         </div>
       </div>

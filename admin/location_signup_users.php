@@ -24,27 +24,27 @@ $db = new Pdocon;
           <div class="control-group form-group">
             <div class="controls">
               <label>Street Name:</label>
-              <input type="text" class="form-control" id="street" pattern="[a-z_]+" name="street"  data-validation-required-message="Please enter your name." required>
+              <input type="text" class="form-control" placeholder="Enter only your street name without space" id="street" name="street" required data-validation-required-message="Please enter your street name.">
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>Area Name:</label>
-              <input type="text" class="form-control" id="area" name="area"  data-validation-required-message="Please enter your email." required>
+              <input type="text" class="form-control" id="area" name="area" required data-validation-required-message="Please enter your area name.">
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>LGA:</label>
-              <input type="text" class="form-control" id="lga" name="lga" required data-validation-required-message="Please enter your Password." required>
+              <input type="text" class="form-control" id="lga" name="lga" required data-validation-required-message="Please enter your lga name.">
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>State Name:</label>
-              <input type="text" class="form-control" id="state" name="state" required data-validation-required-message="Please enter your Password.">
+              <input type="text" class="form-control" id="state" name="state" required data-validation-required-message="Please enter your state name.">
             </div>
           </div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton" name="update">Continue</button>

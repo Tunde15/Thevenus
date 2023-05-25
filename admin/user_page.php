@@ -14,7 +14,7 @@ $db = new Pdocon;
   <!-- Show message when area or street table is successfully created from ajax -->
 </div>
  <?php
- // Checking if the group table is created or not
+ // Checking if the group table is crerated or not
 if (isset($_SESSION['user_data'])){
 $my_street =   $_SESSION['user_data']['street'];
 $my_area   =   $_SESSION['user_data']['area'];
@@ -31,21 +31,8 @@ if ($find_area == false){
   $db->bindValue(':creatornme', $fullname, PDO::PARAM_STR);
   $area_exec = $db->execute();
 }
-
 ?>
-<script>
- /************** Using ajax to create area table to database ******************/ 
-  $(document).ready(function(){ 
-  $("#create_area_tbl").submit(function(stop_default){ 
-  stop_default.preventDefault();
-  var url     = $(this).attr("action");
-  var data    = $(this).serialize();
-  $.post(url, data, function(confirm){
-  $("#show_area_tbl").html(confirm);
-   });
-   });
-   });
-</script>
+
 <?php
 $db->query("SELECT * FROM group_tables WHERE streets_tbl =:streetname");
 $db->bindValue(':streetname', $my_street, PDO::PARAM_STR);
@@ -57,21 +44,7 @@ if ($find_street == false) {
   $db->bindValue(':creatornme', $fullname, PDO::PARAM_STR);
   $street_exec = $db->execute();
 }
-
 ?>
-<script>
-/************** Using ajax to create street table to database ******************/ 
-  $(document).ready(function(){ 
-  $("#create_street_tbl").submit(function(stop_default){ 
-  stop_default.preventDefault();
-  var url     = $(this).attr("action");
-  var data    = $(this).serialize();
-  $.post(url, data, function(confirm){
-  $("#show_area_tbl").html(confirm);
-  });
-  });
-  });
-</script>
             
   <?php
   // php script Showing user info on user page
@@ -87,7 +60,7 @@ if ($find_street == false) {
   $profile_img = $row['user_img'];
  echo'<div class="backimage" style="background-image: url(uploaded_image/' . $back_img . '); background-color: #3399ff; background-size: 100% 100%;" id="cover_out">';
  ?>
-            <!-- <form name="sentMessage" method="post" id="contactForm" enctype="multipart/form-data" action="user_page.php">
+              <!-- <form name="sentMessage" method="post" id="contactForm" enctype="multipart/form-data" action="page.php">
               <label class="control-label col-sm-2" for="image" id="coverbtn" onclick="document.getElementById('upload_cover').style.display='block';">Edit cover </label>
               <input type="file" name="image_cover" id="image" class="image_inp" onchange="loadCover(event)">
               <input type="submit" name="upload_cover" value="Save Cover" class="btn btn-secondary" id="upload_cover" style="display:none;">
@@ -346,10 +319,9 @@ $("#send_street_msg")[0].reset();
           <li>
             <strong>Follow us on instagram</strong>
           </li>
-          <li>Follow us on twitter</li>
-          <li>Like us on facebook</li>
-          <li>Follow us on Linkedin</li>
-          <li>email us on tundeajayi@ymail.com</li>
+          <a href="https://twitter.com/theveenuss"><li>Follow us on twitter</li></a>
+          <a href="https://web.facebook.com/theveenuss"><li>Like us on facebook</li></a>
+          <a href="https://www.instagram.com/babatundeking1/"><li>Follow us on instagram</li></a>
         </ul>
         <p>Get involved and know more about the society you live in...you own it and we can only get the best from it in unity. Get motivated and meet people in your area to begin a better Community.</p>
       </div>

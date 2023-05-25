@@ -24,14 +24,14 @@ $db = new Pdocon;
           <div class="control-group form-group">
             <div class="controls">
               <label>Country Name:</label>
-              <input type="text" class="form-control" id="country" name="country"  data-validation-required-message="Please enter your name.">
+              <input type="text" class="form-control" id="country" name="country"  data-validation-required-message="Please enter your country name.">
               <p class="help-block"></p>
             </div>
           </div>
           <div class="control-group form-group">
             <div class="controls">
               <label>Phone Number:</label>
-              <input type="tel" class="form-control" id="Phone_number" name="Phone_number"  data-validation-required-message="Please enter your email.">
+              <input type="tel" class="form-control" id="Phone_number" name="Phone_number"  data-validation-required-message="Please enter your phone number.">
               <p class="help-block"></p>
             </div>
           </div>

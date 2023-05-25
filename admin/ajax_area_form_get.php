@@ -36,6 +36,11 @@ $db = new Pdocon;
        <?php echo "<h6 href=''>{$result['user_name']}</h6>" ?>
     </div> 
         <?php echo"{$result['user_msg']}" ?>
+        <div class="media-body" style="background-color: blue!important;">
+       
+        <?php echo"{$result['admin_msg']}" ?>
     </div>
-  </div><br>
+    </div>
+  </div>
+<br>
 <?php endforeach; ?>

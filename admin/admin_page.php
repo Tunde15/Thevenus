@@ -100,6 +100,56 @@ if(isset($_POST['upload'])){
     image.src = URL.createObjectURL(event.target.files[0]);
   };
 </script>
-  <!-- /.container -->
+ <!-- Area group chat -->
+<div class="row change">
+<div class="col-lg-6 mb-6" id="area_conv" style="display: none;">
+<div id="content" class="content">
+<a href="#" class="close close1" data-dismiss="alert" aria-label="close" style="background-color: red!important;">&times;</a>
+<center><h4><?php echo $my_area.' '.' Talk' ?></h4></center>
+<div class="chat" id="show_area_chats">
+<!-- Show area messages -->
+</div><br>
+<script>
+   //Script to show area messages with ajax
+$(document).ready(function(){ 
+    setInterval(function(){ display_show_area_chat(); }, 4000);
+    function display_show_area_chat(){
+        $.ajax({       
+            url: 'admin_ajax_area_form_get.php',
+            type: 'POST',
+            success: function(show_report){        
+                if(show_report){          
+                    $("#show_area_chats").html(show_report);
+                }
+            }    
+        });   
+    }
+});    
+</script>
+  <form name="sentMessage" method="post" id="send_area_msg" enctype="multipart/form-data" action="admin_ajax_area_form_post.php">
+          <div class="control-group form-group">
+            <div class="controls">
+              <textarea name="area_msg" style="width:100%; height:60px; resize: none;"></textarea>
+              <button type="submit" class="btn btn-primary" id="send_area_btn" name="submit">Send</button>
+            </div>
+          </div>
+        </form>
+</div>
+<script>
+/************** Using ajax to send area messages to the database ******************/ 
+$(document).ready(function(){ 
+$("#send_area_msg").submit(function(stop_default){ 
+stop_default.preventDefault();
+var url     = $(this).attr("action");
+var data    = $(this).serialize();
+$.post(url, data, function(confirm){
+$("#show_area_chats").html(confirm);
+  });
+$("#send_area_msg")[0].reset();
+ });
+ });
+</script>
+</div>
+</div>
 
   <?php include('includes/footer.php'); ?>

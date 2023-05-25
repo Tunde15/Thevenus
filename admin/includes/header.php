@@ -28,30 +28,30 @@ if(isset($_SESSION['user_is_logged_in'])){
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="People, community" />
+  <meta name="author" content="People, community, lost and found item" />
   <meta name="description" content="" />
-  <meta name="keywords" content="photos & people; logos business cards, search, logos, personal cards, custom cards, Motivation, people in my area" />
-  <meta property="og:title" content="community; personal Cards | Grassroot" />
+  <meta name="keywords" content="found an item; lost an item" />
+  <meta property="og:title" content="community; street and area news | Grassroot" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.theveenuus.com.ng" />
   <meta property="og:image" content="" />
-  <meta property="og:site_name" content="theveenuus | thevenus" />
-  <meta itemprop="name" content="People & community; personal Cards | Welfarism Helps togetherness" />
+  <meta property="og:site_name" content="theveenuus.com.ng | my area" />
+  <meta itemprop="name" content="People & community; area street | Welfarism Helps togetherness" />
   <meta itemprop="description" content="" />
   <meta itemprop="image" content="" />
 
 
-        <title>The Venus</title>
+        <title>The Veenuus | Be the change and connect to your community</title>
 
         <!-- Bootstrap CSS -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="changecss/Thevenus.css">
-        <link rel="icon" type="image/x-icon" href="image/venus.jpeg">
+        <link rel="icon" type="image/x-icon" href="image/arealogo.png">
 
         <!-- Custom Fonts -->
         <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+        
         <!-- script jquery -->
         <script src="js/jquery.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -85,6 +85,7 @@ if(isset($_SESSION['user_is_logged_in'])){
     $('.close2').click(function(){
       $('#street_conv').hide();
     })
+    
   });
 
 </script>          
@@ -98,7 +99,7 @@ if(isset($_SESSION['user_is_logged_in'])){
                  $my_area   =   $_SESSION['user_data']['area'];
                  $my_lga    =   $_SESSION['user_data']['lga'];
                  $image     =   $_SESSION['user_data']['image'];
-                 $img_sent  =   $_SESSION['user_data']['imgsent']; 
+                 $img_sent  =   $_SESSION['user_data']['imgsent'];  
                  $my_id     =   $_SESSION['user_data']['id'];
                 } 
                 ?>
@@ -122,7 +123,7 @@ if(isset($_SESSION['user_is_logged_in'])){
             <a class="nav-link" href="user_page.php"><?php echo $fullname ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="../blog.php">Blog</a>
+            <a class="nav-link" href="area_blog.php">Area News</a>
           </li>
           <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
