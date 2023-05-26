@@ -1,27 +1,4 @@
-<?php include('includes/header.php'); ?>
-
-
-<?php
-
-//Include functions
-include('includes/functions.php');
-
-//check to see if user if logged in else redirect to index page 
-
-
-?>
-
- 
-<?php
-
-//require or include your database connection file
-//require database class files
-require('includes/pdocon.php');
-    
-//instatiating our database objects
-$db = new Pdocon;
-
-?>
+<?php include('includes/header.php');?>
     <!-- Page Heading/Breadcrumbs -->
     <h1 class="mt-4 mb-3">The Venus Blog<br>
       <small>Know more about the society you live today</small>

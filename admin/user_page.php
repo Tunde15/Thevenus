@@ -1,70 +1,36 @@
- <?php include('includes/header.php'); ?>
-<?php
-//Include functions
-include('includes/functions.php');
-?> 
-<?php
-//require database class files
-require('includes/pdocon.php');
-//instatiating our database objects
-$db = new Pdocon;
+<?php include('includes/header.php');
  showmsg();
  ?>
 <div id="show_area_tbl">
   <!-- Show message when area or street table is successfully created from ajax -->
 </div>
  <?php
- // Checking if the group table is crerated or not
-if (isset($_SESSION['user_data'])){
-$my_street =   $_SESSION['user_data']['street'];
-$my_area   =   $_SESSION['user_data']['area'];
-$my_lga   =   $_SESSION['user_data']['lga'];
-$image     =   $_SESSION['user_data']['image'];
-$db->query("SELECT * FROM group_tables WHERE area_tbl =:areaname");
-$db->bindValue(':areaname', $my_area, PDO::PARAM_STR);
-$find_area = $db->fetchSingle();
-}
-// Checking for area table if it exist
-if ($find_area == false){
-  $db->query('INSERT INTO group_tables (area_tbl, group_creator) VALUES (:areanme, :creatornme)');
-  $db->bindValue(':areanme', $my_area, PDO::PARAM_STR);
-  $db->bindValue(':creatornme', $fullname, PDO::PARAM_STR);
-  $area_exec = $db->execute();
-}
-?>
+ // Checking if the group table is created or not
+  $area_tblresult = $user->check_forarea_grptbl($my_area);
 
-<?php
-$db->query("SELECT * FROM group_tables WHERE streets_tbl =:streetname");
-$db->bindValue(':streetname', $my_street, PDO::PARAM_STR);
-$find_street = $db->fetchSingle();
-// Checking for street table if it exist
-if ($find_street == false) {
-  $db->query('INSERT INTO group_tables (streets_tbl, group_creator) VALUES (:streetnme, :creatornme)');
-  $db->bindValue(':streetnme', $my_street, PDO::PARAM_STR);
-  $db->bindValue(':creatornme', $fullname, PDO::PARAM_STR);
-  $street_exec = $db->execute();
+// Checking for area table if it exist
+if ($area_tblresult == false){
+  $user->insert_areatbl($my_area, $my_name);
 }
+
 ?>
-            
-  <?php
-  // php script Showing user info on user page
-   $db->query("SELECT * FROM users WHERE user_email = :email");
-   $my_email = $_SESSION['user_data']['email'];
-   $db->bindValue(':email', $my_email, PDO::PARAM_STR);
-   $row = $db->fetchSingle();
-  ?>
+<?php
+ // Checking if the group table is created or not
+$str_tblresult = $user->check_forstr_grptbl($my_street);
+// Checking for street table if it exist
+if ($str_tblresult == false) {
+  $user->insert_strtbl($my_street, $my_name);
+}
+
+?>
 <!-- Showing user info on user page -->
-<?php if ($row): ?>
+<?php if ($result): ?>
   <?php
-  $back_img = $row['user_back_img'];
-  $profile_img = $row['user_img'];
+    $back_img = $result->user_back_img;
+    $profile_img = $result->user_img;
+
  echo'<div class="backimage" style="background-image: url(uploaded_image/' . $back_img . '); background-color: #3399ff; background-size: 100% 100%;" id="cover_out">';
  ?>
-              <!-- <form name="sentMessage" method="post" id="contactForm" enctype="multipart/form-data" action="page.php">
-              <label class="control-label col-sm-2" for="image" id="coverbtn" onclick="document.getElementById('upload_cover').style.display='block';">Edit cover </label>
-              <input type="file" name="image_cover" id="image" class="image_inp" onchange="loadCover(event)">
-              <input type="submit" name="upload_cover" value="Save Cover" class="btn btn-secondary" id="upload_cover" style="display:none;">
-              </form> -->
               <?php
               echo'<img src="uploaded_image/' . $profile_img . '" height="200px!important;" width="200px!important;" id="output">';
               ?>
@@ -81,87 +47,17 @@ if ($find_street == false) {
               </form>
             </div>
               </div>
-              <!-- <script type="text/javascript">
-  
-  var loadCover = function(event){
-    var image = document.getElementById('cover_out');
-    image.src = URL.createObjectURL(event.target.files[0]);
-  };
-
- // $(document).ready(function(){ 
- //  $("#upload_pic").submit(function(stop_default){ 
- //  stop_default.preventDefault();
- //  var url     = $(this).attr("action");
- //  var data    = $(this).serialize();
- //  $.post(url, data, function(confirm){
- //  $("#show_area_tbl").html(confirm);
- //  });
- //  });
- //  });
-</script> -->
  <?php
- //             if(isset($_POST['upload_cover'])){
-  //              $cover_pic              =   $_FILES['image_cover']['name'];
-              
-  //              $cover_pic_tmp          =   $_FILES['image_cover']['tmp_name'];
-    
-  //   //move image to permanent location
-  //   move_uploaded_file($cover_pic_tmp, "uploaded_image/$cover_pic");
+    if(isset($_POST['upload_pic'])){
+        $profile_pic              =   $_FILES['image_pic']['name'];
+        $profile_pic_tmp          =   $_FILES['image_pic']['tmp_name'];
 
-  //   $db->query('UPDATE users SET user_back_img=:back_img WHERE user_id=:id ');
-
-  //   $db->bindValue(':id', $my_id, PDO::PARAM_INT);
-  //   $db->bindValue(':back_img', $cover_pic, PDO::PARAM_STR);
-
-  //   $run_cover = $db->execute();
-
-  //   if($run_cover){
- 
-  //      echo '<div> 
-  //      <h3>Picture Saved Pls<br> Reload Your Page</h3>
-  //               </div>';
-
-  //   }
-  // }
-  ?>
-              <script type="text/javascript">
-  
-  var loadFile = function(event){
-    var image = document.getElementById('output');
-    image.src = URL.createObjectURL(event.target.files[0]);
-  };
-
- // $(document).ready(function(){ 
- //  $("#upload_pic").submit(function(stop_default){ 
- //  stop_default.preventDefault();
- //  var url     = $(this).attr("action");
- //  var data    = $(this).serialize();
- //  $.post(url, data, function(confirm){
- //  $("#show_area_tbl").html(confirm);
- //  });
- //  });
- //  });
-</script>
- <?php
-              if(isset($_POST['upload_pic'])){
-               $profile_pic              =   $_FILES['image_pic']['name'];
-              
-               $profile_pic_tmp          =   $_FILES['image_pic']['tmp_name'];
-    
-    //move image to permanent location
-    move_uploaded_file($profile_pic_tmp, "uploaded_image/$profile_pic");
-
-    $db->query('UPDATE users SET user_img=:frt_img WHERE user_id=:id ');
-
-    $db->bindValue(':id', $my_id, PDO::PARAM_INT);
-    $db->bindValue(':frt_img', $profile_pic, PDO::PARAM_STR);
-
-    $run_picture = $db->execute();
+        $run_picture = $user->upd_profilepic($profile_pic_tmp, $profile_pic, $my_id);
 
     if($run_picture){
         
        echo '<div> 
-       <h3>Picture Saved Pls<br> Reload Your Page</h3>
+       <h3 style="color: blue;">Picture Saved Pls<br> Reload Your Page</h3>
                 </div>';
     }
   }
@@ -170,8 +66,8 @@ if ($find_street == false) {
            <div class="container">
               <div class="contact">  
               <center>
-                <h3 class="names"><?php echo $row["user_name"] ; ?></h3> 
-             <a href="edit_userpage.php?my_id= <?php echo $row['user_id'] ?>"> <button class="btn btn-primary">Edit profile <i class='fa fa-edit'></i> </button></a>
+                <h3 class="names"><?php echo $result->user_name ; ?></h3> 
+             <a href="edit_userpage.php?my_id= <?php echo $result->user_id ?>"> <button class="btn btn-primary">Edit profile <i class='fa fa-edit'></i> </button></a>
             </center>
            </div><br><br>
                <div class="row">
@@ -179,7 +75,7 @@ if ($find_street == false) {
                 <center><h5>Works</h5></center>
                  <?php 
                   //looping round the work space
-                $workgrp = array($row['user_work1'], $row['user_work2'], $row['user_work3']);
+                $workgrp = array($result->user_work1, $result->user_work2, $result->user_work3);
                 $workgrplgt = count($workgrp);
                   for($x = 0; $x < $workgrplgt; $x++) {
                    echo "<button class='btn btn-info text-light' style='margin-left:4px;'>$workgrp[$x]</button>";
@@ -191,19 +87,19 @@ if ($find_street == false) {
                  <center><h5>Contact</h5></center>
                  <div class="contactlist">
                 <?php
-                 echo "<span class='fa fa-home' style='font-size:20px'></span><p><strong>Street:</strong> <a href ='#'>{$row['user_street']}</a> <strong>Area:</strong><a href='#'> {$row['user_area']}</a> <strong>LGA:</strong><a href='#'> {$row['user_lga']}</a> <strong>State:</strong> <a href='#'>{$row['user_state']}</a> <strong>Country:</strong><a href='#'> {$row['user_country']}</a></p>"; ?>
+                 echo "<span class='fa fa-home' style='font-size:20px'></span><p><strong>Street:</strong> <a href ='#'>{$result->user_street}</a> <strong>Area:</strong><a href='#'> {$result->user_area}</a> <strong>LGA:</strong><a href='#'> {$result->user_lga}</a> <strong>State:</strong> <a href='#'>{$result->user_state}</a> <strong>Country:</strong><a href='#'> {$result->user_country}</a></p>"; ?>
                  <?php
-                 echo "<span class='fa fa-twitter' style='font-size:20px'></span><a href='#'> {$row['user_twitter']}</a>";?>
+                 echo "<span class='fa fa-twitter' style='font-size:20px'></span><a href='#'> {$result->user_twitter}</a>";?>
                  <?php
-                 echo "<span class='fa fa-phone' style='font-size:20px'></span><a href='#'> {$row['user_phone']}</a><br>";
+                 echo "<span class='fa fa-phone' style='font-size:20px'></span><a href='#'> {$result->user_phone}</a><br>";
                  ?>
                  <?php
-                 echo "<span class='fa fa-instagram' style='font-size:20px'></span><a href='#'>  {$row['user_insta']}</a>";
+                 echo "<span class='fa fa-instagram' style='font-size:20px'></span><a href='#'>  {$result->user_insta}</a>";
                  ?>
                  <?php
-                 echo"<span class='fa fa-facebook' style='font-size:20px'></span><a href='#'>  {$row['user_fb']}</a><br>";?>
+                 echo"<span class='fa fa-facebook' style='font-size:20px'></span><a href='#'>  {$result->user_fb}</a><br>";?>
                  <?php
-                 echo"<span class='fa fa-envelope' style='font-size:20px'></span><a href='#'>  {$row['user_email']}</a>";?>
+                 echo"<span class='fa fa-envelope' style='font-size:20px'></span><a href='#'>  {$result->user_email}</a>";?>
                  </div> 
                </div>
              <?php endif; ?>     
@@ -217,23 +113,7 @@ if ($find_street == false) {
 <div class="chat" id="show_area_chats">
 <!-- Show area messages -->
 </div><br>
-<script>
-   //Script to show area messages with ajax
-$(document).ready(function(){ 
-    setInterval(function(){ display_show_area_chat(); }, 4000);
-    function display_show_area_chat(){
-        $.ajax({       
-            url: 'ajax_area_form_get.php',
-            type: 'POST',
-            success: function(show_report){        
-                if(show_report){          
-                    $("#show_area_chats").html(show_report);
-                }
-            }    
-        });   
-    }
-});    
-</script>
+
   <form name="sentMessage" method="post" id="send_area_msg" enctype="multipart/form-data" action="ajax_area_form_post.php">
           <div class="control-group form-group">
             <div class="controls">
@@ -264,25 +144,8 @@ $("#send_area_msg")[0].reset();
   <a href="#" class="close close2" data-dismiss="alert" aria-label="close" style="background-color: red!important;">&times;</a>
 <center><h4><?php echo $my_street.' '.' Talk' ?></h4></center>
 <div class="chat" id="show_street_chats">
-
 </div><br>
-<script>
-   //Script to show street messages with ajax
-$(document).ready(function(){ 
-    setInterval(function(){ display_show_street_chat(); }, 2000);
-    function display_show_street_chat(){
-        $.ajax({       
-            url: 'ajax_street_form_get.php',
-            type: 'POST',
-            success: function(show_report){        
-                if(show_report){          
-                    $("#show_street_chats").html(show_report);
-                }
-            }    
-        });   
-    }
-});    
-</script>
+
   <form name="sentMessage" method="post" id="send_street_msg" enctype="multipart/form-data" action="ajax_street_form_post.php">
           <div class="control-group form-group">
             <div class="controls">
@@ -319,9 +182,10 @@ $("#send_street_msg")[0].reset();
           <li>
             <strong>Follow us on instagram</strong>
           </li>
-          <a href="https://twitter.com/theveenuss"><li>Follow us on twitter</li></a>
-          <a href="https://web.facebook.com/theveenuss"><li>Like us on facebook</li></a>
-          <a href="https://www.instagram.com/babatundeking1/"><li>Follow us on instagram</li></a>
+          <li>Follow us on twitter</li>
+          <li>Like us on facebook</li>
+          <li>Follow us on Linkedin</li>
+          <li>email us on tundeajayi@ymail.com</li>
         </ul>
         <p>Get involved and know more about the society you live in...you own it and we can only get the best from it in unity. Get motivated and meet people in your area to begin a better Community.</p>
       </div>
@@ -343,6 +207,13 @@ $("#send_street_msg")[0].reset();
         <a class="btn btn-lg btn-secondary btn-block" href="#" name="submit">Back to top</a>
       </div>
     </div>
+    <script> 
+    ushowArea(); 
+    ucreateAreatbl();
+    ucreateStrtbl();
+    ushowArea();
+    ushowStr();
+    </script>
 
   <!-- /.container -->
 

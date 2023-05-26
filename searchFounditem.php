@@ -1,20 +1,4 @@
 <?php include('includes/founditheader.php'); ?>
-
-
-<?php
-
-//Include functions
-include('admin/includes/functions.php');
-
-//check to see if user if logged in else redirect to index page 
-
-//require or include your database connection file
-//require database class files
-require('admin/includes/pdocon.php');
-    
-//instatiating our database objects
-$db = new Pdocon;
-?>
 <!-- Search box for user info -->
     <div class="row">
       <div class="col-lg-4 mb-4">
@@ -39,7 +23,7 @@ $db = new Pdocon;
        $raw_search  =  cleandata($_GET['search']);
        $c_search    =  sanitize($raw_search);
        $db->query("SELECT * FROM found_items WHERE item_name LIKE '%$c_search%'");
-       $show = $db->fetchMultiple();
+       $show = $db->fetchobj_all();
        ?>
     <?php   if ($show) { ?>
          <div class="row">
@@ -48,25 +32,25 @@ $db = new Pdocon;
   <div class="media">
     <div class="media-left media-middle">
     <?php
-    $itemimg = $show['image'];
+    $itemimg = $show->image;
       echo'<img src="admin/uploaded_image/'. $itemimg . '" class="media-object" width="150px;" height="100px;">'
       ?>
       <div>
       <?php
-      echo"<small>{$show['founder_name']}, {$show['date']}</small>"?>
+      echo"<small>{$show->founder_name}, {$show->date}</small>"?>
       </div>
     </div>
     <div class="media-body" style="padding-left: 20px!important;">
     <?php
-      echo"<center><h6 style='color: #3399ff;' class='media-heading'><strong>{$show['item_name']}</strong></h6></center>"?>
+      echo"<center><h6 style='color: #3399ff;' class='media-heading'><strong>{$show->item_name}</strong></h6></center>"?>
       <div>
       <?php
-      echo"<strong>Found At: </strong><a>{$show['found_at']}</a>"?>
+      echo"<strong>Found At: </strong><a>{$show->found_at}</a>"?>
       </div>
       <div>
       <?php
-       echo "<strong>Founder Contact: </strong><a> {$show['founder_contact']}</a>
-       <strong>Founder Msg: </strong><a> {$show['founder_msg']}</a>";?>
+       echo "<strong>Founder Contact: </strong><a> {$show->founder_contact}</a>
+       <strong>Founder Msg: </strong><a> {$show->founder_msg}</a>";?>
     </div>
   </div>
   <br>

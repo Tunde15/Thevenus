@@ -1,83 +1,31 @@
- <?php include('includes/header_admin_signin.php'); ?>
+<?php 
+ //require init class and header files
+include('includes/header_signin.php');
 
+$admin    = new Admin();
+$session = new Session();
 
-<?php
-
-//Include functions
-include('includes/functions.php');
-
-
-
-?>
- 
- 
- 
-<?php
-/************** Register new customer ******************/
-
-
-//require database class files
-require('includes/pdocon.php');
-
-
-//instatiating our database objects
-$db = new Pdocon;
 showmsg();
 //Collect and clean values from the form
 if(isset($_POST['submit'])){
     
     $raw_email       =   cleandata($_POST['email']);
-    
     $raw_password    =   cleandata($_POST['password']);
     
 //Clean Data
     $c_email         =   valemail($raw_email);            
-    
- 
-    $db->query('SELECT * FROM admin WHERE admin_email =:email AND admin_pass =:password');
-    
-    $db->bindValue(':email', $c_email, PDO::PARAM_STR);
-    $db->bindValue(':password',$raw_password, PDO::PARAM_STR);
-    
-    $row = $db->fetchSingle();
-    
+    $hashed_password =   hashpassword($raw_password);
+
+    $row = $admin->verify_admin($c_email, $hashed_password);
     
     if($row){
-        
-        $d_image        =   $row['admin_img'];
-        
-        $d_name         =   $row['admin_name'];
-        
-        $s_image        =   "<img src='uploaded_image/$d_image' height='40px!important;' width='40px!important;' style='position:static!important;' />"; 
-        
-        $_SESSION['admin_data'] = array(
-        
-        
-        'fullname'      =>   $row['admin_name'],
-        'id'            =>   $row['admin_id'],
-        'email'         =>   $row['admin_email'],
-        'area'          =>   $row['admin_area'],
-        'lga'           =>   $row['admin_lga'],
-        'imgsent'       =>   $row['admin_img'],
-        'image'         =>   $s_image
-
-        );
-        
-        $_SESSION['user_is_logged_in']  =  true;
-        
+        $_SESSION['id'] = $row->admin_id;
+        $session->login($row);
         redirect('admin_page.php');
-
-        $myname = $_SESSION['admin_data']['fullname'];
-        
-        
         keepmsg('<div class="alert alert-success text-center">
                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                      <strong>Welcome </strong>' . $myname . ' You are logged in to The Venus. 
-                </div>');
-        
-        
-        
-        
+                      <strong>Welcome </strong>' . $row->admin_name . ' You are logged in to The Venus. 
+                </div>');    
     }else{
         
          echo '<div class="alert alert-danger text-center">
@@ -94,6 +42,8 @@ if(isset($_POST['submit'])){
       <div class="col-lg-2 mb-4">
       </div>
       <div class="col-lg-8 mb-4">
+         <h3>Edit Profile</h3>
+        <p>Sign in if you already have an account, to edit your profile/card</p>
           <div class="card-header">
         <h3>SignIn</h3>
          <form name="sentMessage" method="post" id="contactForm" enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -113,18 +63,10 @@ if(isset($_POST['submit'])){
             </div>
           </div>
           <button type="submit" class="btn btn-primary" id="sendMessageButton" name="submit">SignIn</button>
-        </form>
+        </form><br>
+        <p>You dont have an account? <strong><a href="personal_signup_users.php">SignUp</a></strong> to create your profile.</p>
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    function showMypass(){
-      var x = document.getElementById('pwd');
-      if(x.type === "password"){
-        x.type = "text";
-      }
-      else{
-        x.type = "password";
-      }
-    }
-  </script>
+
+  <?php include('../includes/footer.php'); ?>  

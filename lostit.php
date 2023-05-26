@@ -1,25 +1,4 @@
-<?php include('includes/founditheader.php'); ?>
-
-
-<?php
-
-//Include functions
-include('admin/includes/functions.php');
-
-//check to see if user if logged in else redirect to index page 
-
-
-?>
-
- 
-<?php
-
-//require or include your database connection file
-//require database class files
-require('admin/includes/pdocon.php');
-    
-//instatiating our database objects
-$db = new Pdocon;
+<?php include('includes/founditheader.php');
 showmsg();
 ?>
 <!-- Search box for user info -->
@@ -67,7 +46,7 @@ showmsg();
     <?php
       $db->query("SELECT * FROM lost_items");
     
-      $results = $db->fetchMultiple();
+      $results = $db->fetchobj_all();
       
     ?>
 
@@ -78,25 +57,25 @@ showmsg();
   <div class="media">
     <div class="media-left media-middle">
     <?php
-    $itemimg = $result['image'];
+    $itemimg = $result->image;
       echo'<img src="admin/uploaded_image/'. $itemimg . '" class="media-object" width="150px;" height="100px;">'
       ?>
       <div>
       <?php
-      echo"<small>{$result['owner_name']}, {$result['date']}</small>"?>
+      echo"<small>{$result->owner_name}, {$result->date}</small>"?>
       </div>
     </div>
     <div class="media-body" style="padding-left: 20px!important;">
     <?php
-      echo"<center><h6 style='color: #3399ff;' class='media-heading'><strong>{$result['item_name']}</strong></h6></center>"?>
+      echo"<center><h6 style='color: #3399ff;' class='media-heading'><strong>{$result->item_name}</strong></h6></center>"?>
       <div>
       <?php
-      echo"<strong>Lost At: </strong><a>{$result['lost_at']}</a>"?>
+      echo"<strong>Lost At: </strong><a>{$result->lost_at}</a>"?>
       </div>
       <div>
       <?php
-       echo "<strong>Owner Contact: </strong><a> {$result['owner_contact']}</a>
-       <br><strong>Owner Msg: </strong><a> {$result['owner_msg']}</a>";?>
+       echo "<strong>Owner Contact: </strong><a> {$result->owner_contact}</a>
+       <br><strong>Owner Msg: </strong><a> {$result->owner_msg}</a>";?>
     </div>
   </div>
   <br>

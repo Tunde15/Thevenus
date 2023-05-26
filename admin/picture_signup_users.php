@@ -1,19 +1,6 @@
-<?php include('includes/header_signup.php'); ?>
-<?php
-//Include functions
-include('includes/functions.php');
-?>
-<?php
-$picture_id = $_SESSION['user_data']['id_user'];
+<?php include('includes/header_signup.php');
+$picture_id = $_SESSION['reg_id'];
 
-?>
-<?php
-//require database class files
-require('includes/pdocon.php');
-//instatiating our database objects
-$db = new Pdocon;
-?>
-  <?php
 if(isset($_POST['upload'])){
 
     //Collect Front-Image

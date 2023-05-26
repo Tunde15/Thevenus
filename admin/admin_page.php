@@ -1,44 +1,41 @@
- <?php include('includes/admin_header.php'); ?>
-<?php
-//Include functions
-include('includes/functions.php');
-?> 
-<?php
-//require database class files
-require('includes/pdocon.php');
-//instatiating our database objects
-$db = new Pdocon;
+ <?php include('includes/admin_header.php');
  showmsg();
- ?>
-
-
-  <?php
+ 
 if(isset($_POST['upload'])){
+    $admin        =   new Admin();
 
     $raw_msg    =   cleandata($_POST['area_msg']);
     $raw_head   =   cleandata($_POST['area_head']);
     $c_msg      =   sanitize($raw_msg);
     $c_head     =   sanitize($raw_head);
+
+    $admin->admin_name    = $my_name;
+    $admin->admin_area    = $my_area;
+    $admin->admin_lga     = $my_lga;
+    $admin->admin_heading = $c_head;
+    $admin->admin_msg     = $c_msg;
     //Collect Front-Image
-    $post_pic              =   $_FILES['front-image']['name'];
-    $post_pic_tmp          =   $_FILES['front-image']['tmp_name'];
+    $admin->post_pic              =   $_FILES['front-image']['name'];
+    $admin->post_pic_tmp          =   $_FILES['front-image']['tmp_name'];
     
-    //move image to permanent location
-    move_uploaded_file($post_pic_tmp, "uploaded_image/$post_pic");
+    // //move image to permanent location
+    // move_uploaded_file($post_pic_tmp, "uploaded_image/$post_pic");
 
-    $db->query('INSERT INTO admin_post (admin_name, admin_area, admin_lga, admin_heading, admin_msg, admin_postpic, time) VALUES (:name_admin, :area_admin, :lga_admin, :heading, :message, :image, NOW())');
+    // $db->query('INSERT INTO admin_post (admin_name, admin_area, admin_lga, admin_heading, admin_msg, admin_postpic, time) VALUES (:name_admin, :area_admin, :lga_admin, :heading, :message, :image, NOW())');
 
-    $db->bindValue(':name_admin', $fullname, PDO::PARAM_STR);
-    $db->bindValue(':area_admin', $my_area, PDO::PARAM_STR);
-    $db->bindValue(':lga_admin', $my_lga, PDO::PARAM_STR);
-    $db->bindValue(':heading', $c_head, PDO::PARAM_STR);
-    $db->bindValue(':message', $c_msg, PDO::PARAM_STR);
-    $db->bindValue(':image', $post_pic, PDO::PARAM_STR);
+    // $db->bindValue(':name_admin', $fullname, PDO::PARAM_STR);
+    // $db->bindValue(':area_admin', $my_area, PDO::PARAM_STR);
+    // $db->bindValue(':lga_admin', $my_lga, PDO::PARAM_STR);
+    // $db->bindValue(':heading', $c_head, PDO::PARAM_STR);
+    // $db->bindValue(':message', $c_msg, PDO::PARAM_STR);
+    // $db->bindValue(':image', $post_pic, PDO::PARAM_STR);
 
-    $run_upload = $db->execute();
+    // $run_upload = $db->execute();
+
+    $run_upload = $admin->post();
 
     
-    if($run_upload){
+    if($run_upload === true){
         
         echo'<div class="alert alert-success text-center">
                       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -93,13 +90,6 @@ if(isset($_POST['upload'])){
       </div>
     </div>
   </div>
-<script type="text/javascript">
-  
-  var loadFile = function(event){
-    var image = document.getElementById('output');
-    image.src = URL.createObjectURL(event.target.files[0]);
-  };
-</script>
  <!-- Area group chat -->
 <div class="row change">
 <div class="col-lg-6 mb-6" id="area_conv" style="display: none;">
@@ -111,20 +101,20 @@ if(isset($_POST['upload'])){
 </div><br>
 <script>
    //Script to show area messages with ajax
-$(document).ready(function(){ 
-    setInterval(function(){ display_show_area_chat(); }, 4000);
-    function display_show_area_chat(){
-        $.ajax({       
-            url: 'admin_ajax_area_form_get.php',
-            type: 'POST',
-            success: function(show_report){        
-                if(show_report){          
-                    $("#show_area_chats").html(show_report);
-                }
-            }    
-        });   
-    }
-});    
+// $(document).ready(function(){ 
+//     setInterval(function(){ display_show_area_chat(); }, 4000);
+//     function display_show_area_chat(){
+//         $.ajax({       
+//             url: 'admin_ajax_area_form_get.php',
+//             type: 'POST',
+//             success: function(show_report){        
+//                 if(show_report){          
+//                     $("#show_area_chats").html(show_report);
+//                 }
+//             }    
+//         });   
+//     }
+// });    
 </script>
   <form name="sentMessage" method="post" id="send_area_msg" enctype="multipart/form-data" action="admin_ajax_area_form_post.php">
           <div class="control-group form-group">
@@ -148,6 +138,7 @@ $("#show_area_chats").html(confirm);
 $("#send_area_msg")[0].reset();
  });
  });
+ showArea();
 </script>
 </div>
 </div>

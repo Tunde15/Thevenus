@@ -1,28 +1,17 @@
 <?php 
 //Open ob_start and session_start functions
     ob_start();
-    session_start();
+require('includes/init.php');
+$session = new Session();
 
-?>
-
-<?php 
-
-if(isset($_SESSION['user_is_logged_in'])){
-    date_default_timezone_set("UTC");
-    
+if($session->checksignin() == false){
+  header("Location: logout.php");
 }else{
-    
-    header("Location: logout.php");
+  date_default_timezone_set("UTC");   
 }
-
 ?>
-
-    
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
-
-
     <head>
         
   <meta charset="utf-8">
@@ -50,22 +39,11 @@ if(isset($_SESSION['user_is_logged_in'])){
         <link rel="icon" type="image/x-icon" href="image/arealogo.png">
 
         <!-- Custom Fonts -->
-        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        
+        <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">     
         <!-- script jquery -->
         <script src="js/jquery.js"></script>
+        <script src="js/scripts.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-
-        
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]
-        url(https://lh3.googleusercontent.com/-7kOBhr3B2dE/AAAAAAAAAAI/AAAAAAAAAAA/AOtt-yHs4g14qqNJaJBXAcpIMv_fV9dDGw/s32-c-mo/photo.jpg)
-        -->
     </head>
     
     <body> 
@@ -84,15 +62,18 @@ if(isset($_SESSION['user_is_logged_in'])){
      <!-- Navigation -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <?php if(isset($_SESSION['user_is_logged_in'])){
-    
-                 $fullname  =   $_SESSION['admin_data']['fullname'];
-                 $my_email  =   $_SESSION['admin_data']['email'];
-                 $my_area   =   $_SESSION['admin_data']['area'];
-                 $my_lga    =   $_SESSION['admin_data']['lga'];
-                 $image     =   $_SESSION['admin_data']['image'];
-                 $img_sent  =   $_SESSION['admin_data']['imgsent'];  
-                 $my_id     =   $_SESSION['admin_data']['id'];
+    <?php if(isset($_SESSION['id'])){
+                $admin         = new Admin();
+                $result       = $admin->find_byid($_SESSION['id']);
+                $my_name      = $result->admin_name;
+                $my_id        = $result->admin_id;
+                $my_area      = $result->admin_area;
+                $my_lga       = $result->admin_lga;
+                $my_img       = $result->admin_img;
+                
+                $image        =   "<img src='uploaded_image/$result->admin_img' height='40px!important;' width='40px!important;' style='position:static!important;' />";
+                }else{
+                  redirect('logout.php');
                 } 
                 ?>
       <a class="navbar-brand" href="../index.php">The Venus</a>
@@ -109,7 +90,7 @@ if(isset($_SESSION['user_is_logged_in'])){
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="user_page.php"><?php echo $fullname ?></a>
+            <a class="nav-link" href="user_page.php"><?php echo $my_name ?></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="../blog.php">Blog</a>
