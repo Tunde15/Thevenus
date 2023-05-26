@@ -1,6 +1,6 @@
 <?php include('includes/admin_header.php'); ?>
 <?php
-//Include functions
+//Include fun
 include('includes/functions.php');
 ?>
  
